@@ -1,5 +1,6 @@
 const actions = require('./actions')
 const inquirer = require('inquirer')
+const config = require('./config')
 
 menuOptions = [
   {
@@ -22,6 +23,7 @@ menuOptions = [
 // }
 
 async function menu() {
+  console.log(`Project ${config.projectName}`)
   const optionSelected = await inquirer.prompt([
     {
       type: 'list',
