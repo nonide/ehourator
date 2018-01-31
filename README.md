@@ -8,12 +8,18 @@
 ```
 git clone https://github.com/nonide/ehourator
 cd ehourator
-npm install
+npm install -g .
 ```
 
 ### Configure your project
 ```
 cp config.example.json config.json
+```
+
+### Use
+Execute:
+```
+ehourator
 ```
 
 ## Security
