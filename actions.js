@@ -30,23 +30,22 @@ async function login() {
   await page.keyboard.type(config.password)
 
   await page.click(sel.login.button)
-  await page.waitForNavigation()
+  await page.waitForSelector(sel.saveButton)  
 }
 
 async function init() {
   browser = await puppeteer.launch({
-    headless: true
+    headless: config.headless
   })
   page = await browser.newPage()
   await page.goto(config.url)
 
   await login()
-  await page.waitFor(1500)
 }
 
 async function saveAndClose() {
   await page.click(sel.saveButton)
-  await page.waitFor(2000)
+  await page.waitFor(1000)
   await browser.close()
 }
 
@@ -71,37 +70,27 @@ async function bookInput(day) {
     await page.click(`#${inputId}`)
     await page.keyboard.type(hours)
   }
-
-  console.log(`${getStringDay(day)} booked.`)
 }
 
 async function bookToday () {
   console.log(`Booking hours for today...`)
-  console.log('--------------------------------------------------')
 
   await init()
-
   await bookInput(today)
-
   await saveAndClose()
 
-  console.log('--------------------------------------------------')
   console.log(`Project '${projectName}'. Today booked.`)
 }
 
 async function bookWeek() {
   console.log(`Booking hours for this week...`)
-  console.log('--------------------------------------------------')
 
   await init()
-  
   for (iterate in [...Array(today).keys()]) {
     await bookInput(parseInt(iterate) + 1)
   }
-
   await saveAndClose()
 
-  console.log('--------------------------------------------------')
   console.log(`Project '${projectName}'. Week until today booked.`)
 }
 

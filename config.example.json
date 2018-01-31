@@ -4,5 +4,6 @@
     "projectName": "projectName",
     "url": "https://ehour.project.com/eh/login",
     "weekHours": "8,50",
-    "fridayHours": "6,50"
+    "fridayHours": "6,50",
+    "headless": true
 }
