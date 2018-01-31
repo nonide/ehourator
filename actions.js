@@ -1,7 +1,4 @@
-const puppeteer   = require('puppeteer')
-const config      = require('./config')
-
-const projectName = config.projectName
+const puppeteer = require('puppeteer')
 
 // position of inputs in eHour app
 const inputDays   = [7, 11, 15, 19, 23]
@@ -22,7 +19,7 @@ function getStringDay(day) {
   return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'][day - 1]
 }
 
-async function login() {
+async function login(config) {
   await page.click(sel.login.username)
   await page.keyboard.type(config.username)
 
@@ -33,14 +30,14 @@ async function login() {
   await page.waitForSelector(sel.saveButton)  
 }
 
-async function init() {
+async function init(config) {
   browser = await puppeteer.launch({
     headless: config.headless
   })
   page = await browser.newPage()
   await page.goto(config.url)
 
-  await login()
+  await login(config)
 }
 
 async function saveAndClose() {
@@ -49,13 +46,14 @@ async function saveAndClose() {
   await browser.close()
 }
 
-async function bookInput(day) {
+async function bookInput(config, day) {
   let hours = config.weekHours
   if (day === 5)
     hours = config.fridayHours
 
   let input = inputDays[day - 1]
 
+  let projectName = config.projectName
   const inputId = await page.evaluate((projectName, input) => {
     return [...document.querySelectorAll(".projectName")].filter(
       project => project.innerHTML == projectName
@@ -72,26 +70,26 @@ async function bookInput(day) {
   }
 }
 
-async function bookToday () {
+async function bookToday(config) {
   console.log(`Booking hours for today...`)
 
-  await init()
-  await bookInput(today)
+  await init(config)
+  await bookInput(config, today)
   await saveAndClose()
 
-  console.log(`Project '${projectName}'. Today booked.`)
+  console.log(`Project '${config.projectName}'. Today booked.`)
 }
 
-async function bookWeek() {
+async function bookWeek(config) {
   console.log(`Booking hours for this week...`)
 
-  await init()
+  await init(config)
   for (iterate in [...Array(today).keys()]) {
-    await bookInput(parseInt(iterate) + 1)
+    await bookInput(config, parseInt(iterate) + 1)
   }
   await saveAndClose()
 
-  console.log(`Project '${projectName}'. Week until today booked.`)
+  console.log(`Project '${config.projectName}'. Week until today booked.`)
 }
 
 module.exports.bookToday = bookToday

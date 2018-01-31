@@ -1,36 +1,37 @@
 #!/usr/bin/env node
 
-const actions = require('./actions')
+const actions  = require('./actions')
 const inquirer = require('inquirer')
-const config = require('./config')
+const configuration = require('./configuration')
+var clear = require('clear')
 
-menuOptions = [
-  {
-    name: 'Book today',
-    value: 'bookToday'
-  },
-  {
-    name: 'Book week until today',
-    value: 'bookWeek'
-  },
-  new inquirer.Separator(),
-  {
-    name: 'Exit',
-    value: 'exit'
-  },
-]
-
-// async function checkData() {
-
-// }
-
-async function menu() {
+async function menu(config) {
   console.log(`Project ${config.projectName}`)
+  const menuOptions = [
+    {
+      name: 'Book today',
+      value: 'bookToday'
+    },
+    {
+      name: 'Book week until today',
+      value: 'bookWeek'
+    },
+    new inquirer.Separator(),
+    {
+      name: 'Change configuration',
+      value: 'config'
+    },
+    new inquirer.Separator(),
+    {
+      name: 'Exit',
+      value: 'exit'
+    },
+  ]
   const optionSelected = await inquirer.prompt([
     {
       type: 'list',
       name: 'option',
-      message: 'Select what you want to book into eHour',
+      message: 'What do you want to do?',
       choices: menuOptions,
     },
   ])
@@ -38,10 +39,13 @@ async function menu() {
   try {
     switch (optionSelected.option) {
       case 'bookToday':
-        await actions.bookToday()
+        await actions.bookToday(config)
         break
       case 'bookWeek':
-        await actions.bookWeek()
+        await actions.bookWeek(config)
+        break
+      case 'config':
+        await configuration.newConfig()
         break
       default:
         return
@@ -52,6 +56,8 @@ async function menu() {
 }
 
 ;(async function() {
-  // await checkData()
-  await menu()
+  clear()
+  const config = await configuration.getConfig()
+  clear()
+  await menu(config)
 })()
