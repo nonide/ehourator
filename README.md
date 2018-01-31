@@ -7,6 +7,7 @@
 ### Download the project
 ```
 git clone https://github.com/nonide/ehourator
+cd ehourator
 npm install
 ```
 

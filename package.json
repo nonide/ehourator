@@ -1,16 +1,24 @@
 {
   "name": "ehourator",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "book your eHour automatically",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node ./index.js"
   },
   "author": "Pablo Nonide",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nonide/ehourator.git"
+  },
   "dependencies": {
     "inquirer": "^5.0.1",
     "puppeteer": "^1.0.0"
+  },
+  "preferGlobal": "true",
+  "bin": {
+    "ehourator": "./index.js"
   }
 }

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const actions = require('./actions')
 const inquirer = require('inquirer')
 const config = require('./config')
