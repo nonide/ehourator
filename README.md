@@ -6,18 +6,11 @@
 
 ### Download the project
 ```
-git clone https://github.com/nonide/ehourator
-cd ehourator
-npm install -g .
-```
-
-### Configure your project
-```
-cp config.example.json config.json
+npm install -g ehourator
 ```
 
 ### Use
-Execute:
+To make use of ehourator, just enter:
 ```
 ehourator
 ```
