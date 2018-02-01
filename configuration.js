@@ -1,15 +1,19 @@
-const fs = require('fs-extra')
-const path = require('path')
-const os = require('os')
+const fs       = require('fs-extra')
+const path     = require('path')
+const os       = require('os')
 const inquirer = require('inquirer')
+const chalk    = require('chalk')
 
-const configPath =  path.resolve(os.homedir() , '.ehourator.json')
+const configPath = path.resolve(
+    os.homedir() , '.ehourator.json'
+)
 
 let config
 
 async function newConfig() {
-    console.log("Let's configure your ehourator")
-    console.log('-----------------------------------------')
+    console.log(
+        chalk.hex('#ADC6E5').bold("Let's configure your ehourator \n")
+    )
 
     let exists = await fs.exists(configPath)
     let fileConfig
@@ -33,7 +37,7 @@ async function newConfig() {
             {
                 type: 'input',
                 name: 'url',
-                message: 'Enter your eHour LOGIN URL',
+                message: 'Enter your eHour login url',
                 default: fileConfig && fileConfig.url
             },
             {

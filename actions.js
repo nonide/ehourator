@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer')
+const chalk     = require('chalk')
 
 // position of inputs in eHour app
 const inputDays   = [7, 11, 15, 19, 23]
@@ -77,7 +78,7 @@ async function bookToday(config) {
   await bookInput(config, today)
   await saveAndClose()
 
-  console.log(`Project '${config.projectName}'. Today booked.`)
+  console.log(chalk.green.bold(`Project '${config.projectName}'. Today booked.`))
 }
 
 async function bookWeek(config) {
@@ -89,7 +90,7 @@ async function bookWeek(config) {
   }
   await saveAndClose()
 
-  console.log(`Project '${config.projectName}'. Week until today booked.`)
+  console.log(chalk.green.bold(`Project '${config.projectName}'. Week until today booked.`))
 }
 
 module.exports.bookToday = bookToday

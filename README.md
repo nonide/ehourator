@@ -2,15 +2,13 @@
 
 > book your eHour automatically
 
-## Getting started
-
-### Download the project
+## Install
 ```
 npm install -g ehourator
 ```
 
-### Use
-To make use of ehourator, just enter:
+### Usage
+Open a terminal and execute:
 ```
 ehourator
 ```

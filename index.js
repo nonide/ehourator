@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
-const actions  = require('./actions')
-const inquirer = require('inquirer')
+const actions       = require('./actions')
+const inquirer      = require('inquirer')
 const configuration = require('./configuration')
-var clear = require('clear')
+const clear         = require('clear')
+const chalk         = require('chalk');
 
 async function menu(config) {
-  console.log(`Project ${config.projectName}`)
+  console.log(
+    chalk.hex('#ADC6E5').bold(`Project ${config.projectName} \n`)
+  )
   const menuOptions = [
     {
       name: 'Book today',
@@ -46,6 +49,7 @@ async function menu(config) {
         break
       case 'config':
         await configuration.newConfig()
+        await start()
         break
       default:
         return
@@ -55,9 +59,13 @@ async function menu(config) {
   }
 }
 
-;(async function() {
+async function start() {
   clear()
   const config = await configuration.getConfig()
   clear()
   await menu(config)
+}
+
+;(async function() {
+  await start()
 })()
