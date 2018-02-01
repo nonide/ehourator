@@ -10,6 +10,12 @@ const configPath = path.resolve(
 
 let config
 
+const defaultRequire = value => {
+    if (!value)
+        return console.log(chalk.red('Enter value'))
+    return true
+}
+
 async function newConfig() {
     console.log(
         chalk.hex('#ADC6E5').bold("\n Let's configure your ehourator")
@@ -26,25 +32,29 @@ async function newConfig() {
                 type: 'input',
                 name: 'username',
                 message: 'Enter your eHour username',
-                default: fileConfig && fileConfig.username
+                default: fileConfig && fileConfig.username,
+                validate: defaultRequire
             },
             {
                 type: 'password',
                 name: 'password',
                 message: 'Enter your eHour password',
                 mask: '*',
+                validate: defaultRequire
             },
             {
                 type: 'input',
                 name: 'url',
                 message: 'Enter your eHour login url',
-                default: fileConfig && fileConfig.url
+                default: fileConfig && fileConfig.url,
+                validate: defaultRequire
             },
             {
                 type: 'input',
                 name: 'projectName',
                 message: 'Enter the project name',
-                default: fileConfig && fileConfig.projectName
+                default: fileConfig && fileConfig.projectName,
+                validate: defaultRequire
             },
         ]
     )
