@@ -3,12 +3,11 @@
 const actions       = require('./actions')
 const inquirer      = require('inquirer')
 const configuration = require('./configuration')
-const clear         = require('clear')
 const chalk         = require('chalk');
 
 async function menu(config) {
   console.log(
-    chalk.hex('#ADC6E5').bold(`Project ${config.projectName} \n`)
+    chalk.hex('#ADC6E5').bold(`\n Project ${config.projectName} \n`)
   )
   const menuOptions = [
     {
@@ -60,9 +59,7 @@ async function menu(config) {
 }
 
 async function start() {
-  clear()
   const config = await configuration.getConfig()
-  clear()
   await menu(config)
 }
 

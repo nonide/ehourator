@@ -12,7 +12,7 @@ let config
 
 async function newConfig() {
     console.log(
-        chalk.hex('#ADC6E5').bold("Let's configure your ehourator \n")
+        chalk.hex('#ADC6E5').bold("\n Let's configure your ehourator")
     )
 
     let exists = await fs.exists(configPath)
