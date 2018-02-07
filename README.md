@@ -12,7 +12,8 @@ npm install -g ehourator
 
 Don't have npm? Learn how to install Node.js and npm [here](https://docs.npmjs.com/getting-started/installing-node).
 
-### Usage
+
+## Usage
 Just open a terminal and execute:
 ```
 ehourator
@@ -22,6 +23,7 @@ Show help for more features and commands:
 ```
 ehourator --help
 ```
+
 
 ## Security
 
