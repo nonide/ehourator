@@ -15,11 +15,12 @@
   },
   "dependencies": {
     "chalk": "^2.3.0",
+    "commander": "^2.14.1",
     "fs-extra": "^5.0.0",
     "inquirer": "^5.0.1",
     "puppeteer": "^1.0.0"
   },
-  "preferGlobal": "true",
+  "preferGlobal": true,
   "bin": {
     "ehourator": "./index.js"
   }

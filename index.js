@@ -4,6 +4,7 @@ const actions       = require('./actions')
 const inquirer      = require('inquirer')
 const configuration = require('./configuration')
 const chalk         = require('chalk');
+const program       = require('commander')
 
 async function menu(config) {
   console.log(
@@ -60,9 +61,22 @@ async function menu(config) {
 
 async function start() {
   const config = await configuration.getConfig()
-  await menu(config)
+
+  program
+    .option('-d, --day',  'Book today')
+    .option('-w, --week', 'Book week until today')
+    .parse(process.argv);
+
+  if (program.day)
+    await actions.bookToday(config)
+  else if (program.week)
+    await actions.bookWeek(config)
+  else
+    await menu(config)
 }
 
 ;(async function() {
+  program
+    .version(require('./package.json').version)
   await start()
 })()
