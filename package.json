@@ -1,6 +1,6 @@
 {
   "name": "ehourator",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "book your eHour automatically",
   "main": "index.js",
   "scripts": {
