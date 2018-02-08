@@ -24,6 +24,20 @@ Show help for more features and commands:
 ehourator --help
 ```
 
+### Some tips about the initial configuration
+First time you execute it, a config form will be opened.
+
+For the Project Name field, you should enter the project name without parenthesis. For example, in this project:
+
+![Project example](./img/example-project.png "Project example")
+
+The project name would be Backend Optimization.
+
+The Login URL field should be filled with the link to the login form. For example:
+
+`https://ehour.project-name.com/eh/login`
+
+
 
 ## Security
 
