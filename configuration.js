@@ -4,6 +4,8 @@ const os       = require('os')
 const inquirer = require('inquirer')
 const chalk    = require('chalk')
 
+const actions       = require('./actions')
+
 const configPath = path.resolve(
     os.homedir() , '.ehourator.json'
 )
@@ -26,7 +28,7 @@ async function newConfig() {
     if (exists)
         fileConfig = await getConfigObj()
 
-    const response = await inquirer.prompt(
+    let response = await inquirer.prompt(
         [
             {
                 type: 'input',
@@ -48,14 +50,7 @@ async function newConfig() {
                 message: 'Enter your eHour login url',
                 default: fileConfig && fileConfig.url,
                 validate: defaultRequire
-            },
-            {
-                type: 'input',
-                name: 'projectName',
-                message: 'Enter the project name',
-                default: fileConfig && fileConfig.projectName,
-                validate: defaultRequire
-            },
+            }
         ]
     )
 
@@ -63,6 +58,19 @@ async function newConfig() {
     config.weekHours = "8,50"
     config.fridayHours = "6,50"
     config.headless = true
+
+    const projectNames = await actions.getUserProjects(config)
+    response = await inquirer.prompt(
+        [
+            {
+                type: 'list',
+                name: 'projectName',
+                message: 'Select your project',
+                choices: projectNames,
+            }
+        ]
+    )
+    config = Object.assign(config, response)
 
     await fs.writeFile(configPath, JSON.stringify(config))
 }

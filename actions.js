@@ -41,10 +41,26 @@ async function init(config) {
   await login(config)
 }
 
+async function close() {
+  await browser.close()
+}
+
 async function saveAndClose() {
   await page.click(sel.saveButton)
   await page.waitFor(1000)
-  await browser.close()
+  await close()
+}
+
+async function getUserProjects(config) {
+  console.log('Getting user projects...')
+  await init(config)
+  const projects = await page.evaluate(() => {
+    return [...document.querySelectorAll(".projectName")].map(
+      item => item.innerHTML
+    )
+  })
+  await close()
+  return projects
 }
 
 async function bookInput(config, day) {
@@ -93,5 +109,6 @@ async function bookWeek(config) {
   console.log(chalk.green.bold(`Project '${config.projectName}'. Week until today booked.`))
 }
 
-module.exports.bookToday = bookToday
-module.exports.bookWeek  = bookWeek
+module.exports.getUserProjects = getUserProjects
+module.exports.bookToday       = bookToday
+module.exports.bookWeek        = bookWeek
